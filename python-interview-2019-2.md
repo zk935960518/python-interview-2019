@@ -104,7 +104,12 @@
    答案：
 
    ```Python
-  
+     def deep(arr):
+       if not isinstance(arr, list):
+           return 0
+       else:
+           count = 1
+           return count + max(map(deep, arr))
    
    ```
 
@@ -118,6 +123,7 @@
 
    ```Python
    def transfrom(href):
+      pass
       
    ```
 
@@ -133,7 +139,7 @@
     
     def f():
       lock = threading.Lock()
-      lock.accsure()
+      lock.acquire()
       num += random.randint(1, 100)
       lock.release()
       print(num, )
