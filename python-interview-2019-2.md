@@ -13,7 +13,9 @@
    答案：
 
    ```
-   
+   [(a,1), (b,2),(c,3),(d,4)]
+   {1: 'item1', 3:'item9'}
+   9
    ```
 
 2. 下面的Python代码会输出什么。
@@ -28,14 +30,32 @@
    答案：
 
    ```
-   
+   42
    ```
 
 3. 有一个通过网络获取数据的Python函数（可能会因为网络或其他原因出现异常），写一个装饰器让这个函数在出现异常时可以重新执行，但尝试重新执行的次数不得超过指定的最大次数。
 
    答案：
-
+   
    ```Python
+   from functools import wraps
+   
+   
+   def f(n, *args, **kwargs):
+      def decator(func):
+         def wrapper(*args, **kwargs)
+            count = 0
+            while count <= n:         
+               try:
+                  func(*args, **kwargs)
+               except:
+                  count += 1   
+         return wrapper  
+      return decator
+   
+   @f(n)
+   def f1():
+      print('被装饰的函数')   
    
    ```
 
@@ -58,7 +78,9 @@
    答案：
 
    ```Python
+   list({k:v for k,v in prices.items() if v == max(prices.values())}.keys())[0]
    
+   {k:v for k,v in prices.items() if v > 100}
    ```
 
 5. 用生成式实现矩阵的转置操作。例如，用`[[1, 2], [3, 4], [5, 6]`表示矩阵$\begin{bmatrix}1 & 2\\\\3 &4\\\\5 & 6\end{bmatrix}$，写一个生成式将其转换成`[[1, 3, 5], [2, 4, 6]]`即$\begin{bmatrix}1 & 3 & 5\\\\2 & 4 & 6\end{bmatrix}$。
@@ -82,6 +104,7 @@
    答案：
 
    ```Python
+  
    
    ```
 
@@ -94,7 +117,8 @@
    答案：
 
    ```Python
-   
+   def transfrom(href):
+      
    ```
 
 8. 用5个线程，将1~100的整数累加到一个初始值为0的变量上，每次累加时将线程ID和本次累加后的结果打印出来。
@@ -102,6 +126,27 @@
     答案：
 
     ```Python
+    import random
+    import threading
+    
+    num = 0
+    
+    def f():
+      lock = threading.Lock()
+      lock.accsure()
+      num += random.randint(1, 100)
+      lock.release()
+      print(num, )
+      
+    def main():
+      
+      for i in range(5):
+         t = threading.Thread(target=f)
+         t.start()
+         t.join()
+         
+    if __name__ == '__main__':
+      main()
     
     ```
 
@@ -110,7 +155,8 @@
     答案：
 
     ```
-    
+    python中会把引用计数为0的对象不定时的自动处理，如果存在循环引用的情况，也会被内存释放。
+    如果是数字和字符串，后面引用的时候会直接去引用之前已经有的。
     ```
 
 10. 在MySQL数据库中有名为`tb_result`的表如下所示，请写出能查询出如下所示结果的SQL。
@@ -138,6 +184,7 @@
 
   ```SQL
   
+  
   ```
 
 11. 列举出你知道的HTTP请求头选项并说明其作用。
@@ -145,7 +192,10 @@
     答案：
 
     ```
-    
+    Host: 服务器域名
+    Referer: 上个网页的地址
+    Cookie: 用户的信息
+    User-Agent: 浏览器以及操作系统的信息
     ```
 
 12. 阐述JSON Web Token的工作原理和优点。
@@ -153,6 +203,7 @@
     答案：
 
     ```
+  
     
     ```
 
@@ -169,6 +220,9 @@
     答案：
 
     ```
+    https 加入了ssl层协议， https是加密的， 客户端访问服务器建立ssl连接，服务器返回证书和公钥，
+    客户端将密钥会话通过公钥加密传给服务器，服务器用私钥解密会话密钥。
+    http在80端口，明文传输，不安全，https在443端口，加密。
     
     ```
 
@@ -177,7 +231,7 @@
     答案：
 
     ```
-    
+    mysql配置慢查询，找出速度较慢的语句进行优化，数据量大采用水平分表和垂直分表，建立中间表，创建索引.
     ```
 
 16. 在Linux系统中，假设Nginx的访问日志位于`/var/log/nginx/access.log`，该文件的每一行代表一条访问记录，每一行都由若干列（以制表键分隔）构成，其中第1列记录了访问者的IP地址。请用一条命令找出最近的100000次访问中，访问频率最高的IP地址及访问次数。
